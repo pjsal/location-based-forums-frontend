@@ -19,15 +19,23 @@ class App extends Component {
 
   login = (e, user) => {
     e.preventDefault(); 
+    // Call function in API file
     validateUser(user)
+      // If call was successful
       .then((response) => {
-        console.log('currentUser', response);
-      
-        this.setState ({
-          id: response.data.user._id,
-          userName: response.data.user.userName,
-        })
-        console.log('state currentUser', this.state.id, this.state.userName)
+        // console.log('currentUser', response);
+        // If found (i.e, user not null)
+        if (response.data.user) {
+          // Update state
+          this.setState ({
+            id: response.data.user._id,
+            userName: response.data.user.userName,
+          })
+          console.log('state currentUser', this.state.id, this.state.userName)
+        } else {
+          // Need to return an error to the screen
+          console.log('User NOT found!')
+        }
       }) 
       .catch((error) => {
         console.log('API ERROR:', error);
