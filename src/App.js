@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import { validateUser } from './api';
 import Login from "./components/Login.js";
+import ForumMap from "./components/ForumMap.js";
 
 
 class App extends Component {
@@ -11,7 +12,9 @@ class App extends Component {
       currentUser: {
         id: '',
         userName: ''
-      }
+      }, 
+      lat: 39.904361880550006, 
+      lng: -75.1694122331469,
     };
   }
 
@@ -46,6 +49,8 @@ class App extends Component {
     return (
       <>
         <Login login={this.login}/>
+        <ForumMap lat={this.state.lat} 
+               lng={this.state.lng} />
       </>
     );
   }
