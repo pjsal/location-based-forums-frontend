@@ -55,7 +55,7 @@ class App extends Component {
             loggedIn: true,
           });
           
-          // console.log('state currentUser', this.state.id, this.state.userName)
+          console.log('state currentUser', this.state.id, this.state.userName)
         } else {
           // Need to return an error to the screen
           console.log('User NOT found!')
@@ -67,24 +67,31 @@ class App extends Component {
   }
   
   render() {
-    if (this.state.loggedIn) {
-      return <Redirect to='/forums' />
-    }
+    // if (this.state.loggedIn) {
+    //   return <Redirect to='/forums' />
+    // }
     return (
       <>
-        <Route path='/login' exact component={(props) => {
+
+        <Login login={this.login}/>
+        <Forums   forums={this.state.forums}
+                  userName={this.state.userName}/>
+
+        {/* <Route path='/login' exact component={(props) => {
           return <Login login={this.login}/>
-        }}/>
+        }}/> */}
         
         
-        <Route path='/forums' exact component={(props) => {
+        {/* <Route path='/forums' exact component={(props) => {
           return <>
-              <Forums   forums={this.state.forums}/>
-              {/* <ForumMap lat={this.state.lat} 
+              <Forums   forums={this.state.forums}
+                        currentUser={this.state.currentUser}/>
+              <ForumMap lat={this.state.lat} 
                         lng={this.state.lng}
-                        forums={this.state.forums} /> */}
+                        forums={this.state.forums}
+                        currentUser={this.state.currentUser}/>
           </>
-        }}/>
+        }}/> */}
       </>
     );
   }

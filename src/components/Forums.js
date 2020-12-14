@@ -14,10 +14,12 @@ class Forums extends Component {
         if (this.props.forums.length > 0) {
             // Display forum details 
             allNearbyForums = this.props.forums.map((forum, index) => {
-                return <Forum 
+                return <Forum
+                        id={forum._id} 
                         name={forum.name}
                         posts={forum.posts}
                         key={index}
+                        userName={this.props.userName}
                         />
             });
         }
