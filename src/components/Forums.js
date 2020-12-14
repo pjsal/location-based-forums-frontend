@@ -16,6 +16,7 @@ class Forums extends Component {
             allNearbyForums = this.props.forums.map((forum, index) => {
                 return <Forum 
                         name={forum.name}
+                        posts={forum.posts}
                         key={index}
                         />
             });

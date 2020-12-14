@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Route, Link, Redirect } from 'react-router-dom';
 import { render } from "react-dom";
 import { validateUser, getAllForums } from "./api";
 import Login from "./components/Login.js";
@@ -12,7 +13,8 @@ class App extends Component {
     this.state = {
       currentUser: {
         id: '',
-        userName: ''
+        userName: '',
+        loggedIn: false,
       }, 
       lat: 39.904361880550006, 
       lng: -75.1694122331469,
@@ -50,8 +52,10 @@ class App extends Component {
           this.setState ({
             id: response.data.user._id,
             userName: response.data.user.userName,
-          })
-          console.log('state currentUser', this.state.id, this.state.userName)
+            loggedIn: true,
+          });
+          
+          // console.log('state currentUser', this.state.id, this.state.userName)
         } else {
           // Need to return an error to the screen
           console.log('User NOT found!')
@@ -63,14 +67,24 @@ class App extends Component {
   }
   
   render() {
-    
+    if (this.state.loggedIn) {
+      return <Redirect to='/forums' />
+    }
     return (
       <>
-        <Login login={this.login}/>
-        <Forums   forums={this.state.forums}/>
-        <ForumMap lat={this.state.lat} 
-                  lng={this.state.lng}
-                  forums={this.state.forums} />
+        <Route path='/login' exact component={(props) => {
+          return <Login login={this.login}/>
+        }}/>
+        
+        
+        <Route path='/forums' exact component={(props) => {
+          return <>
+              <Forums   forums={this.state.forums}/>
+              {/* <ForumMap lat={this.state.lat} 
+                        lng={this.state.lng}
+                        forums={this.state.forums} /> */}
+          </>
+        }}/>
       </>
     );
   }
