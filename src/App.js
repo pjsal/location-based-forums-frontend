@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-import { validateUser, getAllForums } from './api';
+import { validateUser, getAllForums } from "./api";
 import Login from "./components/Login.js";
 import ForumMap from "./components/ForumMap.js";
+import Forums from "./components/Forums.js";
 
 
 class App extends Component {
@@ -62,9 +63,11 @@ class App extends Component {
   }
   
   render() {
+    
     return (
       <>
         <Login login={this.login}/>
+        <Forums   forums={this.state.forums}/>
         <ForumMap lat={this.state.lat} 
                   lng={this.state.lng}
                   forums={this.state.forums} />
