@@ -17,18 +17,31 @@ class ForumMap extends Component {
     };
   }
 
+  onMarkerClick = (props, marker, e) => {
+    // console.log("Marker clicked")
+    this.setState({
+      selectedPlace: props,
+      activeMarker: marker,
+      showingInfoWindow: true
+    })
+  }
 
   render() {
 
-    // Conditional rendering - no markers should be displayed if no forums are nearby
+    // Conditional rendering - no markers should be displayed if there aren't any forums nearby
     let allNearbyForums = <Marker/>
-    // Forums are nearby so...
+    // If forums ARE nearby
     if (this.props.forums.length > 0) {
-      // Return everyone found
+      // Create markers for each one
       allNearbyForums = this.props.forums.map((forum, index) => {
-            return <Marker 
+        return <Marker 
+                    onClick={this.onMarkerClick}
+                    name={forum.name}
+                    userCount={forum.users.length}
+                    postCount={forum.posts.length}
                     position={{lat: forum.latitude, lng: forum.longitude}}
-                    />
+                />
+
         });
     }
 
@@ -49,6 +62,15 @@ class ForumMap extends Component {
           centerAroundCurrentLocation={false}
         >
           {allNearbyForums}
+          <InfoWindow
+            marker={this.state.activeMarker}
+            visible={this.state.showingInfoWindow}>
+              <div>
+                <h3>{this.state.selectedPlace.name}</h3>
+                <p>Users: {this.state.selectedPlace.userCount}</p>
+                <p>Posts: {this.state.selectedPlace.postCount}</p>
+              </div>
+          </InfoWindow>
         </Map>
       </>
     );
