@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Map, GoogleApiWrapper } from 'google-maps-react';
+import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 
 const mapStyles = {
   width: '75%',
@@ -10,11 +10,31 @@ class ForumMap extends Component {
   constructor() {
     super();
     this.state = {
+      name: "React",
+      selectedPlace: {},
+      activeMarker: {},
+      showingInfoWindow: false,
     };
   }
 
 
   render() {
+
+    // Conditional rendering - no markers should be displayed if no forums are nearby
+    let allNearbyForums = <Marker/>
+    // Forums are nearby so...
+    if (this.props.forums.length > 0) {
+      // Return everyone found
+      allNearbyForums = this.props.forums.map((forum, index) => {
+            return <Marker 
+                    position={{lat: forum.latitude, lng: forum.longitude}}
+                    />
+        });
+    }
+
+    console.log('allNearbyForums', allNearbyForums)
+
+
 
     return (
       <>
@@ -28,6 +48,7 @@ class ForumMap extends Component {
           }}
           centerAroundCurrentLocation={false}
         >
+          {allNearbyForums}
         </Map>
       </>
     );

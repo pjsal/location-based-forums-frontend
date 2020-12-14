@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-import { validateUser } from './api';
+import { validateUser, getAllForums } from './api';
 import Login from "./components/Login.js";
 import ForumMap from "./components/ForumMap.js";
 
@@ -15,9 +15,25 @@ class App extends Component {
       }, 
       lat: 39.904361880550006, 
       lng: -75.1694122331469,
+      forums: [],
     };
   }
 
+  componentDidMount(){
+    // Get all forums when this component mounts
+    getAllForums()
+        // If call was successful
+        .then((response) => {
+            console.log('All Forums', response);
+            this.setState ({
+              forums: response.data.forum,
+            })
+
+        })
+        .catch((error) => {
+            console.log('API ERROR:', error);
+        });
+  };
   
 
   login = (e, user) => {
@@ -50,7 +66,8 @@ class App extends Component {
       <>
         <Login login={this.login}/>
         <ForumMap lat={this.state.lat} 
-               lng={this.state.lng} />
+                  lng={this.state.lng}
+                  forums={this.state.forums} />
       </>
     );
   }
