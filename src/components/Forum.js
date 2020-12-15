@@ -44,11 +44,22 @@ class Forum extends Component {
   
 
     render() {
+      
+      // Conditional rendering for posts
+      let forumName = <h2>{this.props.name}</h2>
+      
+      // New posts can only be viewd if user is logged in AND a member of the forum
+      if (this.props.userLoggedIn) {
+        forumName =
+        <h2><a href="#" onClick={this.showPosts}>{this.props.name}</a></h2>
+      }
 
       return (
         <>
-          <h2><a href="#" onClick={this.showPosts}>{this.props.name}</a></h2>
+          {/* <h2><a href="#" onClick={this.showPosts}>{this.props.name}</a></h2> */}
           
+          {forumName}
+
           <Posts  forumPosts={this.state.forumPosts}
                   id={this.props.id} 
                   userName={this.props.userName}

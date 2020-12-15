@@ -21,6 +21,7 @@ class Forums extends Component {
                         posts={forum.posts}
                         key={index}
                         userName={this.props.userName}
+                        userLoggedIn={this.props.userLoggedIn}
                         />
             });
         }
@@ -39,7 +40,7 @@ class Forums extends Component {
                       />
         }
         
-        console.log('userId', this.props.userId)
+        // console.log('userId', this.props.userId)
     return (
       <div>
         <h3>All Nearby Forums</h3>
