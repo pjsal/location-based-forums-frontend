@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Route, Link, Redirect } from 'react-router-dom';
 import { render } from "react-dom";
-import { validateUser, getAllForums, createNewForum } from "./api";
+import { validateUser, getAllForums, createNewForum, addUserToForum } from "./api";
 import Login from "./components/Login.js";
 import ForumMap from "./components/ForumMap.js";
 import Forums from "./components/Forums.js";
@@ -85,6 +85,32 @@ class App extends Component {
   }
 
 
+  joinForum = (e, forumId, userId) => {
+    e.preventDefault(); 
+    console.log('forumId:', forumId)
+    console.log('userId:', userId)
+    // Call function in API file
+    addUserToForum(forumId, userId)
+      // If call was successful
+      .then((response) => {
+        console.log('response', response.data.forum)
+        // Convert response into an array in preparation for next steps
+        const newlyJoinedForum = [response.data.forum]
+        // Create a new array and replace the old forum with the recently joined forum (that contains the new user).  
+        const updatedForums  = this.state.forums.map(obj => newlyJoinedForum.find(o => o._id === obj._id) || obj) 
+        // console.log('forums array', this.state.forums)
+        // console.log('newlyJoinedForum', newlyJoinedForum)
+        // console.log('updatedForums', updatedForums)
+        
+        // Set the forums array equal to the updated one.   This will cause the state to refresh and eliminate the need for a trip to the database.
+        this.setState({
+          forums: updatedForums,
+        });
+      }) 
+      .catch((error) => {
+        console.log('API ERROR:', error);
+      });
+  }
 
 
 
@@ -103,7 +129,13 @@ class App extends Component {
                   userLng={this.state.lng}
                   userLoggedIn={this.state.loggedIn}
                   plantNewForum={this.plantNewForum}
+                  joinForum={this.joinForum}
                   />
+        {/* <ForumMap lat={this.state.lat} 
+                        lng={this.state.lng}
+                        forums={this.state.forums}
+                        currentUser={this.state.currentUser}
+                        /> */}
 
         {/* <Route path='/login' exact component={(props) => {
           return <Login login={this.login}/>

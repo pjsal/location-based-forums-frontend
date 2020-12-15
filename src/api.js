@@ -17,10 +17,15 @@ const createNewForum = (forum) => {
 }
 
 // Create new post 
-const createNewPost = (forumID, post) => {
-    return axios.post(`${process.env.REACT_APP_BASE_URL}forums/api/forums/${forumID}/posts`, post);  
+const createNewPost = (forumId, post) => {
+    return axios.post(`${process.env.REACT_APP_BASE_URL}forums/api/forums/${forumId}/posts`, post);  
+}
+
+// Add user to forum 
+const addUserToForum = (forumId, userId) => {
+    return axios.put(`${process.env.REACT_APP_BASE_URL}forums/api/forums/${forumId}/users/${userId}`);  
 }
 
 
 // Export all methods
-export { validateUser, getAllForums, createNewPost, createNewForum };
+export { validateUser, getAllForums, createNewPost, createNewForum, addUserToForum };

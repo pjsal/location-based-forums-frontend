@@ -19,9 +19,12 @@ class Forums extends Component {
                         id={forum._id} 
                         name={forum.name}
                         posts={forum.posts}
+                        users={forum.users}
                         key={index}
+                        userId={this.props.userId}
                         userName={this.props.userName}
                         userLoggedIn={this.props.userLoggedIn}
+                        joinForum={this.props.joinForum}
                         />
             });
         }
