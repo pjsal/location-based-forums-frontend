@@ -16,8 +16,8 @@ class Forum extends Component {
 
   
   render() {
-    console.log('This states posts', this.state.forumPosts)
-    console.log('This props posts', this.props.forumPosts)
+    // console.log('This states posts', this.state.forumPosts)
+    // console.log('This props posts', this.props.forumPosts)
 
     //   let allPosts = <h4>No Posts Yet</h4>;
       let allPosts = '';

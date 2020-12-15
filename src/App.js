@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Route, Link, Redirect } from 'react-router-dom';
 import { render } from "react-dom";
-import { validateUser, getAllForums } from "./api";
+import { validateUser, getAllForums, createNewForum } from "./api";
 import Login from "./components/Login.js";
 import ForumMap from "./components/ForumMap.js";
 import Forums from "./components/Forums.js";
@@ -16,8 +16,8 @@ class App extends Component {
         userName: '',
         loggedIn: false,
       }, 
-      lat: 39.904361880550006, 
-      lng: -75.1694122331469,
+      lat: 39.901900368416364,
+      lng: -75.16390800261163,
       forums: [],
     };
   }
@@ -66,6 +66,28 @@ class App extends Component {
       });
   }
   
+  plantNewForum = (e, newForum) => {
+    e.preventDefault(); 
+    console.log('newForum:', newForum)
+    // Call function in API file
+    createNewForum(newForum)
+      // If call was successful
+      .then((response) => {
+        console.log('response', response.data.forum)
+        // Update forums by combining with previous states so it rerenders 
+        this.setState({
+          forums: [...this.state.forums, response.data.forum],
+        });
+      }) 
+      .catch((error) => {
+        console.log('API ERROR:', error);
+      });
+  }
+
+
+
+
+
   render() {
     // if (this.state.loggedIn) {
     //   return <Redirect to='/forums' />
@@ -75,7 +97,13 @@ class App extends Component {
 
         <Login login={this.login}/>
         <Forums   forums={this.state.forums}
-                  userName={this.state.userName}/>
+                  userId={this.state.id}
+                  userName={this.state.userName}
+                  userLat={this.state.lat}
+                  userLng={this.state.lng}
+                  userLoggedIn={this.state.loggedIn}
+                  plantNewForum={this.plantNewForum}
+                  />
 
         {/* <Route path='/login' exact component={(props) => {
           return <Login login={this.login}/>

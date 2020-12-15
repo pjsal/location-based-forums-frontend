@@ -11,6 +11,11 @@ const getAllForums = () => {
     return axios.get(`${process.env.REACT_APP_BASE_URL}forums/api/forums`);  
 }
 
+// Create new forum
+const createNewForum = (forum) => {
+    return axios.post(`${process.env.REACT_APP_BASE_URL}forums/api/forums`, forum);  
+}
+
 // Create new post 
 const createNewPost = (forumID, post) => {
     return axios.post(`${process.env.REACT_APP_BASE_URL}forums/api/forums/${forumID}/posts`, post);  
@@ -18,4 +23,4 @@ const createNewPost = (forumID, post) => {
 
 
 // Export all methods
-export { validateUser, getAllForums, createNewPost };
+export { validateUser, getAllForums, createNewPost, createNewForum };
