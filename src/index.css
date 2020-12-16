@@ -17,8 +17,12 @@ code {
   padding: 20px;
 }
 
+.logo {
+  text-align: left;
+}
+
 .login {
-  text-align:right;
+  text-align: right;
 }
 
 .main-container {
@@ -27,16 +31,44 @@ code {
   justify-content: flex-start;
 }
 
+.forums {
+  background-color: rgb(80, 107, 138);
+}
 
 .posts {
   width: 500px;
+  padding-left: 2em;
+  padding-right: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start
 }
 
 
 .post {
   font-size: large;
+  
   padding: 10px;
   border: 1px solid;
   border-radius: 3em;
-  
+  border-color: rgb(127, 209, 223);
+  width: fit-content;
+  background-color: rgb(127, 209, 223);
+}
+
+.currentUser {
+  background-color: rgb(126, 206, 150);
+  border-color: rgb(126, 206, 150);
+  align-self: flex-end;
+}
+
+.author {
+  font-size: small;
+  color: rgb(21, 18, 57);
+  text-align: right;
+  margin-bottom: 1em;
+}
+
+.currUser {
+  text-align: left;
 }

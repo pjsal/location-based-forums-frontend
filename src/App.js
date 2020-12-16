@@ -6,6 +6,7 @@ import Login from "./components/Login.js";
 import ForumMap from "./components/ForumMap.js";
 import Forums from "./components/Forums.js";
 
+const APPNAME = "Location Based Forums"
 
 class App extends Component {
   constructor(props) {
@@ -175,6 +176,9 @@ class App extends Component {
     return (
       <>
         <div className="header">
+          <div className="logo">
+            {APPNAME}
+          </div>
           <div className="login">
             <Login  loggedIn={this.state.loggedIn}
                     login={this.login}
@@ -182,7 +186,7 @@ class App extends Component {
           </div>
         </div>
         <div className="main-container">
-          <div className='Forums'>
+          <div className='forums'>
             <Forums   forums={this.state.forums}
                       userId={this.state.id}
                       userName={this.state.userName}
@@ -198,11 +202,11 @@ class App extends Component {
           </div>
           <div className="Map"> 
             {/* <h1>This is the map</h1> */}
-          <ForumMap lat={this.state.lat} 
+          {/* <ForumMap lat={this.state.lat} 
                           lng={this.state.lng}
                           forums={this.state.forums}
                           currentUser={this.state.currentUser}
-                          />  
+                          />   */}
           </div>
         </div>
       </>

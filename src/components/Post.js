@@ -4,9 +4,14 @@ class Post extends Component {
 
   render() {
       return (
-        <div className="post">
-          <p>{this.props.author}: {this.props.message}</p>
+        <>
+        <div className={`post ${this.props.userName === this.props.author ? 'currentUser' : ''}`}>
+          {this.props.message}
         </div>
+        <div className={`author ${this.props.userName === this.props.author ? '' : 'currUser'}`}>
+          {this.props.author}
+        </div>
+        </>
       );
   }   
 }

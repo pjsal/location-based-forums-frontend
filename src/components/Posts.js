@@ -32,6 +32,7 @@ class Forum extends Component {
                       message={post.message}
                       author={post.author}
                       key={index}
+                      userName={this.props.userName}
                       />
           });
         }
