@@ -24,7 +24,14 @@ class App extends Component {
 
   componentDidMount(){
     // Get all forums when this component mounts
-    getAllForums()
+    this.refreshForums()
+  };
+  
+
+  refreshForums = () => {
+    // e.preventDefault(); 
+    // Call function in API file
+      getAllForums()
         // If call was successful
         .then((response) => {
             // console.log('All Forums', response);
@@ -36,8 +43,7 @@ class App extends Component {
         .catch((error) => {
             console.log('API ERROR:', error);
         });
-  };
-  
+  }
 
   login = (e, user) => {
     e.preventDefault(); 
@@ -83,6 +89,9 @@ class App extends Component {
             userName: '',
             loggedIn: false,
           });
+
+          // Get all forums when this component mounts
+          this.refreshForums()
           
       //     console.log('state currentUser', this.state.id, this.state.userName)
       //   } else {
@@ -180,12 +189,12 @@ class App extends Component {
                       />
           </div>
           <div className="Map"> 
-            <h1>This is the map</h1>
-          {/* <ForumMap lat={this.state.lat} 
+            {/* <h1>This is the map</h1> */}
+          <ForumMap lat={this.state.lat} 
                           lng={this.state.lng}
                           forums={this.state.forums}
                           currentUser={this.state.currentUser}
-                          />   */}
+                          />  
           </div>
         </div>
       </>

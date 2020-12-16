@@ -21,20 +21,23 @@ class Forum extends Component {
     //   let allPosts = <h4>No Posts Yet</h4>;
       let allPosts = '';
 
-      if (this.props.forumPosts.length > 0) {
-        allPosts = this.props.forumPosts.map((post, index) => {
-            return <Post 
-                    message={post.message}
-                    author={post.author}
-                    key={index}
-                    />
-        });
+      // Only show the posts if user is logged in
+      if (this.props.userName) {
+        if (this.props.forumPosts.length > 0) {
+          allPosts = this.props.forumPosts.map((post, index) => {
+              return <Post 
+                      message={post.message}
+                      author={post.author}
+                      key={index}
+                      />
+          });
+        }
       }
 
       let showNewPostForm = '';
       
-      // Only show the new posts form if user selected a forum
-      if (this.props.forumSelected) {
+      // Only show the new posts form if user selected a forum AND a user is logged in
+      if (this.props.forumSelected && this.props.userName) {
         showNewPostForm = 
           <NewPost  postNewMessage={this.props.postNewMessage}
                     userName={this.props.userName}/>
