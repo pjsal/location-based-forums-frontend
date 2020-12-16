@@ -39,8 +39,8 @@ class Forum extends Component {
 
       let showNewPostForm = '';
       
-      // Only show the new posts form if user selected a forum AND a user is logged in
-      if (this.props.forumSelected && this.props.userName) {
+      // Only show the new posts for the selected forum
+      if (this.props.forumSelected === this.props.id) {
         showNewPostForm = 
           <NewPost  postNewMessage={this.props.postNewMessage}
                     userName={this.props.userName}/>
@@ -49,7 +49,6 @@ class Forum extends Component {
     return (
       <div className="posts">
         {allPosts}
-        <br></br>
         {showNewPostForm}
       </div>
       );

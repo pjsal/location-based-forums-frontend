@@ -160,8 +160,9 @@ class App extends Component {
     });
     console.log('All forums', this.state.forums)
     console.log('Forums Array with active only', selectedForum)
+    console.log('forumId', forumId)
     this.setState({
-      forums: selectedForum,
+      // forums: selectedForum,
       forumSelected: forumId,
     });
     console.log('forums', this.state.forums)
@@ -196,12 +197,12 @@ class App extends Component {
                       />
           </div>
           <div className="Map"> 
-            <h1>This is the map</h1>
-          {/* <ForumMap lat={this.state.lat} 
+            {/* <h1>This is the map</h1> */}
+          <ForumMap lat={this.state.lat} 
                           lng={this.state.lng}
                           forums={this.state.forums}
                           currentUser={this.state.currentUser}
-                          />   */}
+                          />  
           </div>
         </div>
       </>

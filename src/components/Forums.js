@@ -7,7 +7,7 @@ class Forums extends Component {
   
     render() {
 
-      console.log('forumSelected', this.props.forumSelected)
+      // console.log('forumSelected', this.props.forumSelected)
 
         // Conditional rendering 
         let allNearbyForums = <h4>No Forums Nearby</h4>;

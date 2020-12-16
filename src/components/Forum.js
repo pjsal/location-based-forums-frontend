@@ -23,14 +23,16 @@ class Forum extends Component {
 
 
     showPosts = (e) => {
-      // Still need this even though it's a link (it will still rerender)
       e.preventDefault();
       console.log('In Show Posts***************************')
       this.setState({
         forumPosts: this.props.posts,
         // forumSelected: this.props.id,
-      })
-      this.props.showActiveForumOnly(this.props.id)
+      }, () => {
+        this.props.showActiveForumOnly(this.props.id);
+      }); 
+      
+      // this.props.showActiveForumOnly(this.props.id)
       console.log('Current Forum id:', this.props.id);
       console.log('Current Props posts:', this.props.posts);
       console.log('Current States posts:', this.state.forumPosts);
@@ -69,19 +71,30 @@ class Forum extends Component {
         // AND a member of the forum
         if (this.props.users.includes(this.props.userId)) {
           // If this is the selected forum, then display an exit forum button along with the forum heading
-          if (this.props.forumSelected) {
+          if (this.props.forumSelected === this.props.id) {
             forumName = <><h2>{this.props.name}</h2> <button onClick={() => this.returnToMainPage()}>Return to Forums</button></>
           } else {
-            forumName = <h2><a href="#" onClick={this.showPosts}>{this.props.name}</a></h2>
+            // // Only display forum name if one wasn't already selected and this is not it 
+            if (this.props.forumSelected && (this.props.forumSelected !== this.props.id)) {
+              forumName = ''
+            } else {
+              forumName = <h2><a href="#" onClick={this.showPosts}>{this.props.name}</a></h2>
+            }
           }
+        // Otherwise, the user is not a member of this forum
         } else {
-        forumName =
-          <>
-            <h2>{this.props.name}</h2>
-            <form onSubmit={(e) => this.props.joinForum(e, this.props.id, this.props.userId)}>
-              <button type='Submit'>Join</button>
-            </form>
-          </>
+          // Only display forum name if one wasn't already selected and this is not it
+          if (this.props.forumSelected && (this.props.forumSelected !== this.props.id)) {
+            forumName = ''
+          } else {
+            forumName =
+              <>
+                <h2>{this.props.name}</h2>
+                <form onSubmit={(e) => this.props.joinForum(e, this.props.id, this.props.userId)}>
+                  <button type='Submit'>Join</button>
+                </form>
+              </>
+          }
         }
       }
 
@@ -92,6 +105,7 @@ class Forum extends Component {
           
           {forumName}
 
+          {/* <Posts  forumPosts={this.props.posts} */}
           <Posts  forumPosts={this.state.forumPosts}
                   forumSelected={this.props.forumSelected}
                   id={this.props.id} 
