@@ -27,7 +27,7 @@ class App extends Component {
     getAllForums()
         // If call was successful
         .then((response) => {
-            console.log('All Forums', response);
+            // console.log('All Forums', response);
             this.setState ({
               forums: response.data.forum,
             })
@@ -65,6 +65,35 @@ class App extends Component {
         console.log('API ERROR:', error);
       });
   }
+
+
+  logout = (e, user) => {
+    e.preventDefault(); 
+    // NEED AN API CALL TO REMOVE USER FROM FORUMS.  CURRENT USER STATE IS HERE SO SHOULD BE ABLE TO USE THAT
+    // Call function in API file
+    // validateUser(user)
+    //   // If call was successful
+    //   .then((response) => {
+    //     // console.log('currentUser', response);
+    //     // If found (i.e, user not null)
+    //     if (response.data.user) {
+    //       // Update state
+          this.setState ({
+            id: '',
+            userName: '',
+            loggedIn: false,
+          });
+          
+      //     console.log('state currentUser', this.state.id, this.state.userName)
+      //   } else {
+      //     // Need to return an error to the screen
+      //     console.log('User NOT found!')
+      //   }
+      // }) 
+      // .catch((error) => {
+      //   console.log('API ERROR:', error);
+      // });
+  }
   
   plantNewForum = (e, newForum) => {
     e.preventDefault(); 
@@ -97,7 +126,7 @@ class App extends Component {
         // Convert response into an array in preparation for next steps
         const newlyJoinedForum = [response.data.forum]
         // Create a new array and replace the old forum with the recently joined forum (that contains the new user).  
-        const updatedForums  = this.state.forums.map(obj => newlyJoinedForum.find(o => o._id === obj._id) || obj) 
+        const updatedForums  = this.state.forums.map(originalForums => newlyJoinedForum.find(newForum => newForum._id === originalForums._id) || originalForums) 
         // console.log('forums array', this.state.forums)
         // console.log('newlyJoinedForum', newlyJoinedForum)
         // console.log('updatedForums', updatedForums)
@@ -112,46 +141,53 @@ class App extends Component {
       });
   }
 
+  
+  showActiveForumOnly = (forumId) => {
+    // console.log('Active Forum', forumId)
+    const selectedForum = this.state.forums.filter((forum) => {
+      return forum._id === forumId;
+    });
+    // console.log('All forums', this.state.forums)
+    // console.log('Forums Array with active only', selectedForum)
+    this.setState({
+      forums: selectedForum,
+    });
+  }
 
 
   render() {
-    // if (this.state.loggedIn) {
-    //   return <Redirect to='/forums' />
-    // }
+    
     return (
       <>
-
-        <Login login={this.login}/>
-        <Forums   forums={this.state.forums}
-                  userId={this.state.id}
-                  userName={this.state.userName}
-                  userLat={this.state.lat}
-                  userLng={this.state.lng}
-                  userLoggedIn={this.state.loggedIn}
-                  plantNewForum={this.plantNewForum}
-                  joinForum={this.joinForum}
-                  />
-        {/* <ForumMap lat={this.state.lat} 
-                        lng={this.state.lng}
-                        forums={this.state.forums}
-                        currentUser={this.state.currentUser}
-                        /> */}
-
-        {/* <Route path='/login' exact component={(props) => {
-          return <Login login={this.login}/>
-        }}/> */}
-        
-        
-        {/* <Route path='/forums' exact component={(props) => {
-          return <>
-              <Forums   forums={this.state.forums}
-                        currentUser={this.state.currentUser}/>
-              <ForumMap lat={this.state.lat} 
-                        lng={this.state.lng}
-                        forums={this.state.forums}
-                        currentUser={this.state.currentUser}/>
-          </>
-        }}/> */}
+        <div className="header">
+          <div className="login">
+            <Login  loggedIn={this.state.loggedIn}
+                    login={this.login}
+                    logout={this.logout}/>
+          </div>
+        </div>
+        <div className="main-container">
+          <div className='Forums'>
+            <Forums   forums={this.state.forums}
+                      userId={this.state.id}
+                      userName={this.state.userName}
+                      userLat={this.state.lat}
+                      userLng={this.state.lng}
+                      userLoggedIn={this.state.loggedIn}
+                      plantNewForum={this.plantNewForum}
+                      joinForum={this.joinForum}
+                      showActiveForumOnly={this.showActiveForumOnly}
+                      />
+          </div>
+          <div className="Map"> 
+            <h1>This is the map</h1>
+          {/* <ForumMap lat={this.state.lat} 
+                          lng={this.state.lng}
+                          forums={this.state.forums}
+                          currentUser={this.state.currentUser}
+                          />   */}
+          </div>
+        </div>
       </>
     );
   }

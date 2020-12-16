@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
+import { Segment, Container } from 'semantic-ui-react';
 
 const mapStyles = {
-  width: '75%',
-  height: '75%'
+  // position: 'relative', 
+  width: '50%',
+  height: '50%'
 };
 
 class ForumMap extends Component {
@@ -50,7 +52,7 @@ class ForumMap extends Component {
 
 
     return (
-      <>
+      <Container style={{width: '100%', height: '400px'}}>
         <Map
           google={this.props.google}
           zoom={15}
@@ -72,7 +74,7 @@ class ForumMap extends Component {
               </div>
           </InfoWindow>
         </Map>
-      </>
+      </Container>
     );
   }
 }

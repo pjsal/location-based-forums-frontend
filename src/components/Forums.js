@@ -25,6 +25,7 @@ class Forums extends Component {
                         userName={this.props.userName}
                         userLoggedIn={this.props.userLoggedIn}
                         joinForum={this.props.joinForum}
+                        showActiveForumOnly={this.props.showActiveForumOnly}
                         />
             });
         }

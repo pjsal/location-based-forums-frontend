@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Post from './Post.js';
 import NewPost from './NewPost.js';
-import { Route, Link, Redirect } from 'react-router-dom';
 
 class Forum extends Component {
   constructor(props) {
@@ -32,12 +31,21 @@ class Forum extends Component {
         });
       }
 
+      let showNewPostForm = '';
+      
+      // Only show the new posts form if user selected a forum
+      if (this.props.forumSelected) {
+        showNewPostForm = 
+          <NewPost  postNewMessage={this.props.postNewMessage}
+                    userName={this.props.userName}/>
+      }
+
     return (
-      <>
+      <div className="posts">
         {allPosts}
-        <NewPost  postNewMessage={this.props.postNewMessage}
-                  userName={this.props.userName}/>
-      </>
+        <br></br>
+        {showNewPostForm}
+      </div>
       );
     }   
 }

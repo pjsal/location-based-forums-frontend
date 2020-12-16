@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import Posts from './Posts.js';
 import { createNewPost } from "../api";
-import { Route, Link, Redirect } from 'react-router-dom';
 
 class Forum extends Component {
   constructor(props) {
     super(props);
     this.state = {
       forumPosts: [],
-      forumId: '',
+      forumSelected: '',
     };
   }
 
@@ -17,7 +16,9 @@ class Forum extends Component {
       e.preventDefault();
       this.setState({
         forumPosts: this.props.posts,
+        forumSelected: this.props.id,
       })
+      this.props.showActiveForumOnly(this.props.id)
       console.log('Current Forum id:', this.props.id);
       console.log('Current Forum posts:', this.props.posts);
     }
@@ -74,6 +75,7 @@ class Forum extends Component {
           {forumName}
 
           <Posts  forumPosts={this.state.forumPosts}
+                  forumSelected={this.state.forumSelected}
                   id={this.props.id} 
                   userName={this.props.userName}
                   postNewMessage={this.postNewMessage}/>
