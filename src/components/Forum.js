@@ -7,20 +7,33 @@ class Forum extends Component {
     super(props);
     this.state = {
       forumPosts: [],
-      forumSelected: '',
+      // forumSelected: '',
     };
   }
+
+
+    returnToMainPage = () => {
+      // Could have called the refreshForums() func from the onClick event, but the posts weren't being cleared out 
+      console.log('returnToMainPage***************************')
+      this.setState({
+        forumPosts: [],
+      })
+      this.props.refreshForums();
+    }
+
 
     showPosts = (e) => {
       // Still need this even though it's a link (it will still rerender)
       e.preventDefault();
+      console.log('In Show Posts***************************')
       this.setState({
         forumPosts: this.props.posts,
-        forumSelected: this.props.id,
+        // forumSelected: this.props.id,
       })
       this.props.showActiveForumOnly(this.props.id)
       console.log('Current Forum id:', this.props.id);
-      console.log('Current Forum posts:', this.props.posts);
+      console.log('Current Props posts:', this.props.posts);
+      console.log('Current States posts:', this.state.forumPosts);
     }
 
     postNewMessage = (e, post) => {
@@ -51,11 +64,16 @@ class Forum extends Component {
       // Conditional rendering for posts
       let forumName = <h2>{this.props.name}</h2>
       
-      // Posts can only be viewd if user is logged in AND a member of the forum
+      // Posts can only be viewd if user is logged in 
       if (this.props.userLoggedIn) { 
+        // AND a member of the forum
         if (this.props.users.includes(this.props.userId)) {
-          forumName =
-            <h2><a href="#" onClick={this.showPosts}>{this.props.name}</a></h2>
+          // If this is the selected forum, then display an exit forum button along with the forum heading
+          if (this.props.forumSelected) {
+            forumName = <><h2>{this.props.name}</h2> <button onClick={() => this.returnToMainPage()}>Return to Forums</button></>
+          } else {
+            forumName = <h2><a href="#" onClick={this.showPosts}>{this.props.name}</a></h2>
+          }
         } else {
         forumName =
           <>
@@ -75,7 +93,7 @@ class Forum extends Component {
           {forumName}
 
           <Posts  forumPosts={this.state.forumPosts}
-                  forumSelected={this.state.forumSelected}
+                  forumSelected={this.props.forumSelected}
                   id={this.props.id} 
                   userName={this.props.userName}
                   postNewMessage={this.postNewMessage}/>

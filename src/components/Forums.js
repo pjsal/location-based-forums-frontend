@@ -3,9 +3,11 @@ import Forum from "./Forum.js";
 import NewForum from './NewForum.js';
 
 class Forums extends Component {
-
+    
   
     render() {
+
+      console.log('forumSelected', this.props.forumSelected)
 
         // Conditional rendering 
         let allNearbyForums = <h4>No Forums Nearby</h4>;
@@ -24,31 +26,36 @@ class Forums extends Component {
                         userId={this.props.userId}
                         userName={this.props.userName}
                         userLoggedIn={this.props.userLoggedIn}
+                        forumSelected={this.props.forumSelected}
                         joinForum={this.props.joinForum}
                         showActiveForumOnly={this.props.showActiveForumOnly}
+                        refreshForums={this.props.refreshForums}
                         />
             });
         }
         
         // Conditional rendering for new Forum component
-        let newForumComp = <></>
+        let newCreateForumDisplay = <></>
 
-        // New forums can only be created if user is logged in
-        if (this.props.userLoggedIn) {
-          newForumComp =
-            <NewForum userId={this.props.userId}
-                      userName={this.props.userName}
-                      userLat={this.props.userLat}
-                      userLng={this.props.userLng}
-                      plantNewForum={this.props.plantNewForum}
-                      />
+        // Only display the create forum option if the user is NOT looking at an exiting forums post details
+        if (!this.props.forumSelected) {
+          // New forums can only be created if user is logged in
+          if (this.props.userLoggedIn) {
+            newCreateForumDisplay =
+              <NewForum userId={this.props.userId}
+                        userName={this.props.userName}
+                        userLat={this.props.userLat}
+                        userLng={this.props.userLng}
+                        plantNewForum={this.props.plantNewForum}
+                        />
+          }  
         }
         
         // console.log('userId', this.props.userId)
     return (
       <div>
-        <h3>All Nearby Forums</h3>
-        {newForumComp}
+        {newCreateForumDisplay}
+        {(!this.props.forumSelected ? <h3>All Nearby Forums</h3> : '')}
         {allNearbyForums}
       </div>
     );

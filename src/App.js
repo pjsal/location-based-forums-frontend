@@ -19,6 +19,7 @@ class App extends Component {
       lat: 39.901900368416364,
       lng: -75.16390800261163,
       forums: [],
+      forumSelected: '',
     };
   }
 
@@ -37,6 +38,7 @@ class App extends Component {
             // console.log('All Forums', response);
             this.setState ({
               forums: response.data.forum,
+              forumSelected: '',
             })
 
         })
@@ -152,17 +154,20 @@ class App extends Component {
 
   
   showActiveForumOnly = (forumId) => {
-    // console.log('Active Forum', forumId)
+    console.log('Active Forum', forumId)
     const selectedForum = this.state.forums.filter((forum) => {
       return forum._id === forumId;
     });
-    // console.log('All forums', this.state.forums)
-    // console.log('Forums Array with active only', selectedForum)
+    console.log('All forums', this.state.forums)
+    console.log('Forums Array with active only', selectedForum)
     this.setState({
       forums: selectedForum,
+      forumSelected: forumId,
     });
+    console.log('forums', this.state.forums)
+    console.log('forumSelected', this.state.forumSelected)
   }
-
+  
 
   render() {
     
@@ -183,18 +188,20 @@ class App extends Component {
                       userLat={this.state.lat}
                       userLng={this.state.lng}
                       userLoggedIn={this.state.loggedIn}
+                      forumSelected={this.state.forumSelected}
                       plantNewForum={this.plantNewForum}
                       joinForum={this.joinForum}
                       showActiveForumOnly={this.showActiveForumOnly}
+                      refreshForums={this.refreshForums}
                       />
           </div>
           <div className="Map"> 
-            {/* <h1>This is the map</h1> */}
-          <ForumMap lat={this.state.lat} 
+            <h1>This is the map</h1>
+          {/* <ForumMap lat={this.state.lat} 
                           lng={this.state.lng}
                           forums={this.state.forums}
                           currentUser={this.state.currentUser}
-                          />  
+                          />   */}
           </div>
         </div>
       </>

@@ -20,9 +20,12 @@ class Forum extends Component {
 
     //   let allPosts = <h4>No Posts Yet</h4>;
       let allPosts = '';
-
-      // Only show the posts if user is logged in
-      if (this.props.userName) {
+      console.log('forumSelected', this.props.forumSelected)
+      // console.log('userName', this.props.userName)
+      console.log('forumPosts', this.props.forumPosts);
+      
+      // Only show the posts if user is logged in and a forum is selected
+      if (this.props.userName && this.props.forumSelected) {
         if (this.props.forumPosts.length > 0) {
           allPosts = this.props.forumPosts.map((post, index) => {
               return <Post 
