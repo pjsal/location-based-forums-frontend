@@ -42,6 +42,7 @@ class ForumMap extends Component {
                     userCount={forum.users.length}
                     postCount={forum.posts.length}
                     position={{lat: forum.latitude, lng: forum.longitude}}
+                    // icon={{url: "http://www.googlemapsmarkers.com/v1/009900/"}}
                 />
 
         });
@@ -63,6 +64,13 @@ class ForumMap extends Component {
           }}
           centerAroundCurrentLocation={false}
         >
+          {/* This marker is for the users location */}
+          <Marker 
+              // onClick={this.onMarkerClick}
+              // name={this.props.currentUser.userName}
+              position={{lat: this.props.lat, lng: this.props.lng}}
+              icon={{url: "http://www.googlemapsmarkers.com/v1/8a2be2/"}}
+          />
           {allNearbyForums}
           <InfoWindow
             marker={this.state.activeMarker}

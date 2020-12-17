@@ -36,15 +36,20 @@ input[type=text], input[type=password] {
 
 .header {
   background-color: lightblue;
+  /* background-color: rgb(182, 215, 94); */
   padding: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
 }
 
 .logo {
-  text-align: left;
+  font-size: xx-large;
 }
 
 .login {
-  text-align: right;
+  
 }
 
 .main-container {
@@ -54,7 +59,7 @@ input[type=text], input[type=password] {
 }
 
 .forums {
-  height: 650px;
+  height: 654px;
   padding-top: 13px;
   background-color: rgb(80, 107, 138);
   overflow-y: auto;

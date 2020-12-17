@@ -1,70 +1,94 @@
-# Getting Started with Create React App
+# Location Based Forums
+An application used to create forums based on a location.  Only users within the forum's range can join and participate in the forum.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The purpose of Location Based Forums is to link users within a common area.  The area is relatively small, usually a quarter of a mile.  Typically, they would be used for, concerts, sports events, and large buiness meetings.  People attending these functions have a common interest and this application allows them to share their thoughts with others exclusive to the event.   
 
-## Available Scripts
+LBF uses GPS to determine a user's location and search for nearby forums.  If the user is within range, they can join the forum provided they are logged in.
 
-In the project directory, you can run:
+Location Based Forums (LBF) are temporary (just as the events they're usually associated with) which means they expire after certain amount of time (e.g., 12 hours). 
 
-### `yarn start`
+## Main Page
+![Location Based Forums Main Page](/documentation/LBF-MainPage.png "Main Page")
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Authenticated User Page
+![Location Based Forums Authenticated User Page](/documentation/LBF-UserLoggedIn.png "Authenticated User Page")
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Message Board
+![Location Based Forums Message Board](/documentation/LBF-MessageBoard.png "Message Board")
 
-### `yarn test`
+# User Stories Implemented
+- As a user, I should be able to create a new account. 
+- As a user, I should be able to log in. 
+- As a user, I should be able to log out. 
+- As a user, I should see a map with forums near me. 
+- As a user, I should be able to get details on the forums (e.g., number of posts, users). 
+- As a user, I should be able join a forum near me. 
+- As a user, I should be able to see posts in a forum I joined. 
+- As a user, I should be able to submit my own posts. 
+- As a user, I should only be able to see posts if I'm logged in and a member of the forum. 
+- As a user, I should be able to create a new forum. 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+## Additional Features
+- Used Google Maps React package to display users location and forum(s) location and details (e.g., forum name, number of users, number of posts).
+- Interfaces with an API which stores the forum, posts, and user information.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Technologies
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* HTML
+* CSS
+* Javascript
+* React
+* Axios
+* Google Maps
+* Mongo DB
+* Mongoose
+* Express
 
-### `yarn eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Getting Started
+You can access the site via this link:  [LocationBasedForums](https://paul-location-based-forums-frontend.herokuapp.com/)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+# Application Design
 
-## Learn More
+## Entity Relationship Diagram
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![Location Based Forums ERD](/documentation/LBF.png "ERD Diagram")
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## RESTful Routes
 
-### Code Splitting
+![MoveMe RESTful Routes For Users](/documentation/REST_RoutesForUsers.png "Users RESTful Routes")
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+![MoveMe RESTful Routes For Boxes](/documentation/REST_RoutesForBoxes.png "Boxes RESTful Routes")
 
-### Analyzing the Bundle Size
+## Wireframes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+![MoveMe MainMenu wireframe](/documentation/MoveMeMainMenu.jpg "MoveMe MainMenu wireframe")
 
-### Making a Progressive Web App
+## Application design
+This application employs the Model View Controller principle to create a basic interactive web application.  It uses RESTful practices to manage the available services.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Front-end
+The front-end is a Node JS application which relies on Express and EJS.  Page styling is handled primarily by Materialize and custom CSS overrides. 
 
-### Advanced Configuration
+### Back-end
+It utilizes Mongo as a non-relationship data store.  There are three collections defined: user, box, category.  User has a one-to-many relationship with box.  They are associated via a referential tie defined using Mongoose schemas.  The Category is a stand alone collection which is used to populate drop down boxes.  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+There two seeds files and associated routes which can be used to prepopulate the collections. 
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+# Known Issues
+- Some input fields can be blank which results in crashes if the field is queried at a future point in time.
+- Site crashes when setting up a new user with an existing username. 
 
-### `yarn build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Future Improvements
+- Incorporate a notification service (e.g., Firebase) to allow real-time messaging.
+- Automatically delete forums after a designated time (e.g., 24 hours).
+
+
+
+
