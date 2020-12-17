@@ -5,12 +5,34 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: 'Hind Madurai', sans-serif;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+h2 {
+  color: darkgray;
+}
+
+button {
+  padding: 10px;
+  border: none;
+  background-color: #3F51B5;
+  color :#fff;
+  font-weight: 600;
+  border-radius: 5px;
+}
+
+input[type=text], input[type=password] {
+  margin: 10px;
+  height: 30px;
+  border: 0;
+  border-radius: 10px;
+}
+
 
 .header {
   background-color: lightblue;
@@ -32,11 +54,47 @@ code {
 }
 
 .forums {
+  height: 650px;
+  padding-top: 13px;
   background-color: rgb(80, 107, 138);
+  overflow-y: auto;
+}
+
+.forums-posts-view {
+  font-size: 35px;
+  padding-top: 20px;
+  color: white;
+  padding: .5em;
+  display: inline;
+}
+
+.joined {
+  color: white;
+}
+
+.joined:hover {
+  color: lightgreen;
+}
+
+.not-joined-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding-top: 20px;
+}
+
+.not-joined {
+  
+}
+
+.join-btn {
+  margin-left: 10px;
+  background-color: green;
+  align-self: flex-end;
 }
 
 .posts {
-  width: 500px;
+  width: 490px;
   padding-left: 2em;
   padding-right: 2em;
   display: flex;
@@ -44,10 +102,8 @@ code {
   justify-content: flex-start
 }
 
-
 .post {
   font-size: large;
-  
   padding: 10px;
   border: 1px solid;
   border-radius: 3em;
@@ -71,4 +127,22 @@ code {
 
 .currUser {
   text-align: left;
+}
+
+
+.new-post-or-mainmenu {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.new-post {
+  width: 200px;
+}
+
+.return-btn {
+  margin: 7px;
+  background-color: lightseagreen
 }

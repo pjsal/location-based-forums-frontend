@@ -10,7 +10,7 @@ class Forums extends Component {
       // console.log('forumSelected', this.props.forumSelected)
 
         // Conditional rendering 
-        let allNearbyForums = <h4>No Forums Nearby</h4>;
+        let allNearbyForums = <h1>No Forums Nearby</h1>;
         // console.log('forums prop', this.props.forums)
 
         // If forums are found
@@ -53,11 +53,11 @@ class Forums extends Component {
         
         // console.log('userId', this.props.userId)
     return (
-      <div>
+      <>
         {newCreateForumDisplay}
-        {(!this.props.forumSelected ? <h3>All Nearby Forums</h3> : '')}
+        {(!this.props.forumSelected ? <h1>Nearby Forums</h1> : '')}
         {allNearbyForums}
-      </div>
+      </>
     );
   }
 

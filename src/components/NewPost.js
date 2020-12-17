@@ -18,13 +18,14 @@ class NewPost extends Component {
 
     render() {
         return (
-            <>
+            <div className="new-post-or-mainmenu">
+                <button className="return-btn" onClick={() => this.props.returnToMainPage()}>Return to Forums</button>
                 <form onSubmit={(e) => this.props.postNewMessage(e, this.state)}>
-                    <label for="message">New Post:</label>
-                    <input type="text" name="message" required value={this.state.message} onChange={this.handleChange}/>
-                    <button type='Submit'>Post Message</button>
+                    <label for="message"></label>
+                    <input className="new-post" type="text" name="message" required value={this.state.message} onChange={this.handleChange}/>
+                    <button type='Submit'>Send</button>
                 </form>
-          </>
+            </div>
         );
     }   
 }

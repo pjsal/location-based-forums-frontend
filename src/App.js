@@ -201,12 +201,11 @@ class App extends Component {
                       />
           </div>
           <div className="Map"> 
-            {/* <h1>This is the map</h1> */}
-          {/* <ForumMap lat={this.state.lat} 
+          <ForumMap lat={this.state.lat} 
                           lng={this.state.lng}
                           forums={this.state.forums}
                           currentUser={this.state.currentUser}
-                          />   */}
+                          />  
           </div>
         </div>
       </>

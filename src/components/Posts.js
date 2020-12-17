@@ -44,13 +44,14 @@ class Forum extends Component {
       if (this.props.forumSelected === this.props.id) {
         showNewPostForm = 
           <NewPost  postNewMessage={this.props.postNewMessage}
-                    userName={this.props.userName}/>
+                    userName={this.props.userName}
+                    returnToMainPage={this.props.returnToMainPage}/>
       }
 
     return (
       <div className="posts">
-        {allPosts}
         {showNewPostForm}
+        {allPosts}
       </div>
       );
     }   

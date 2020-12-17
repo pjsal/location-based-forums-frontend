@@ -26,7 +26,8 @@ class Forum extends Component {
       e.preventDefault();
       console.log('In Show Posts***************************')
       this.setState({
-        forumPosts: this.props.posts,
+        // Needed to reverse the order of the posts for display purposes
+        forumPosts: this.props.posts.reverse(),
         // forumSelected: this.props.id,
       }, () => {
         this.props.showActiveForumOnly(this.props.id);
@@ -49,8 +50,10 @@ class Forum extends Component {
         .then((response) => {
           console.log('response', response.data.post)
           // Update forum posts by combining with previous states so it rerenders 
+          
           this.setState({
-            forumPosts: [...this.state.forumPosts, response.data.post],
+            // Needed to reverse the order of the posts for display purposes.
+            forumPosts: [response.data.post, ...this.state.forumPosts],
           });
         }) 
         .catch((error) => {
@@ -72,13 +75,15 @@ class Forum extends Component {
         if (this.props.users.includes(this.props.userId)) {
           // If this is the selected forum, then display an exit forum button along with the forum heading
           if (this.props.forumSelected === this.props.id) {
-            forumName = <><h2>{this.props.name}</h2> <button onClick={() => this.returnToMainPage()}>Return to Forums</button></>
+            // forumName = <div className="forums-posts-view">{this.props.name} <button onClick={() => this.returnToMainPage()}>Return to Forums</button></div>
+            forumName = <div className="forums-posts-view">{this.props.name}</div>
           } else {
             // // Only display forum name if one wasn't already selected and this is not it 
             if (this.props.forumSelected && (this.props.forumSelected !== this.props.id)) {
               forumName = ''
+            // Otherwise, the user has joined this forum
             } else {
-              forumName = <h2><a href="#" onClick={this.showPosts}>{this.props.name}</a></h2>
+              forumName = <h2><a className="joined" href="#" onClick={this.showPosts}>{this.props.name}</a></h2>
             }
           }
         // Otherwise, the user is not a member of this forum
@@ -88,12 +93,12 @@ class Forum extends Component {
             forumName = ''
           } else {
             forumName =
-              <>
-                <h2>{this.props.name}</h2>
+              <div className="not-joined-container">
+                <h2 className="not-joined">{this.props.name}</h2>
                 <form onSubmit={(e) => this.props.joinForum(e, this.props.id, this.props.userId)}>
-                  <button type='Submit'>Join</button>
+                  <button className="join-btn" type='Submit'>Join</button>
                 </form>
-              </>
+              </div>
           }
         }
       }
@@ -110,7 +115,8 @@ class Forum extends Component {
                   forumSelected={this.props.forumSelected}
                   id={this.props.id} 
                   userName={this.props.userName}
-                  postNewMessage={this.postNewMessage}/>
+                  postNewMessage={this.postNewMessage}
+                  returnToMainPage={this.returnToMainPage}/>
         </>
         );
     }   
