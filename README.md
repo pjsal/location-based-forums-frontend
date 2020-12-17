@@ -3,7 +3,7 @@ An application used to create forums based on a location.  Only users within the
 
 The purpose of Location Based Forums is to link users within a common area.  The area is relatively small, usually a quarter of a mile.  Typically, they would be used for, concerts, sports events, and large buiness meetings.  People attending these functions have a common interest and this application allows them to share their thoughts with others exclusive to the event.   
 
-LBF uses GPS to determine a user's location and search for nearby forums.  If the user is within range, they can join the forum provided they are logged in.
+LBF uses GPS to determine a user's location and search for nearby forums.  If the user is within range, they can join the forum provided they are logged in.  Users are allowed to join multiple forums provided that they are in range.
 
 Location Based Forums (LBF) are temporary (just as the events they're usually associated with) which means they expire after certain amount of time (e.g., 12 hours). 
 
@@ -45,6 +45,7 @@ Location Based Forums (LBF) are temporary (just as the events they're usually as
 * Mongo DB
 * Mongoose
 * Express
+* JSON
 
 
 
@@ -73,22 +74,26 @@ You can access the site via this link:  [LocationBasedForums](https://paul-locat
 LBF is comprised of two independant applications.  The front-end is completely separate from the middle tier (api) and back-end database.
 
 ### Front-end
-The front-end is a Node JS application which relies on Express and EJS.  Page styling is handled primarily by Materialize and custom CSS overrides. 
+The front-end was built using the React JS library.  It uses the google-maps-react package to display Google Maps and its features.  Styling is done using standard CSS.  
 
 ### Back-end
-It utilizes Mongo as a non-relationship data store.  There are three collections defined: user, box, category.  User has a one-to-many relationship with box.  They are associated via a referential tie defined using Mongoose schemas.  The Category is a stand alone collection which is used to populate drop down boxes.  
+This utilizes Mongo as a non-relationship data store.  There are three collections defined: user, forum, post.  An JS Express app handles the interactions between the DB and the front-end.  The front-end calls the API provided by the Express app.
 
-There two seeds files and associated routes which can be used to prepopulate the collections. 
+A seed file is used to prepopulate the collections with basic data. 
 
 
 # Known Issues
-- Some input fields can be blank which results in crashes if the field is queried at a future point in time.
-- Site crashes when setting up a new user with an existing username. 
+- The posts page sometimes shows the previous posts when navigating to another forum.
 
 
 # Future Improvements
 - Incorporate a notification service (e.g., Firebase) to allow real-time messaging.
-- Automatically delete forums after a designated time (e.g., 24 hours).
+- Automatically delete forums after a designated time (e.g., 12 hours).
+- Allow users to change the range when viewing forums.  Note: this will not impact the range for joining forums (currently .25).
+- Allow forum creator to set limits on max users. 
+- Utilize more Google maps features to enhance user experience.
+- Overal fit and finish.
+
 
 
 

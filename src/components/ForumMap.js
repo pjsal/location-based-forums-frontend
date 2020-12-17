@@ -70,6 +70,7 @@ class ForumMap extends Component {
               // name={this.props.currentUser.userName}
               position={{lat: this.props.lat, lng: this.props.lng}}
               icon={{url: "http://www.googlemapsmarkers.com/v1/8a2be2/"}}
+              // icon={{url: "../../public/images/MapMarker.png"}}
           />
           {allNearbyForums}
           <InfoWindow
