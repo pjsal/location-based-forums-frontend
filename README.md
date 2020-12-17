@@ -60,16 +60,17 @@ You can access the site via this link:  [LocationBasedForums](https://paul-locat
 
 ## RESTful Routes
 
-![MoveMe RESTful Routes For Users](/documentation/REST_RoutesForUsers.png "Users RESTful Routes")
+![Location Based Forums RESTful Routes](/documentation/LBF_REST-Routes.png " RESTful Routes")
 
-![MoveMe RESTful Routes For Boxes](/documentation/REST_RoutesForBoxes.png "Boxes RESTful Routes")
 
 ## Wireframes
 
-![MoveMe MainMenu wireframe](/documentation/MoveMeMainMenu.jpg "MoveMe MainMenu wireframe")
+[Location Based Forums MainMenu wireframe](/documentation/LBFMainPage.png "Location Based Forums MainMenu wireframe")
+
+[Location Based Forums Posts wireframe](/documentation/LBFPostsPage.png "Location Based Forums Posts wireframe")
 
 ## Application design
-This application employs the Model View Controller principle to create a basic interactive web application.  It uses RESTful practices to manage the available services.
+LBF is comprised of two independant applications.  The front-end is completely separate from the middle tier (api) and back-end database.
 
 ### Front-end
 The front-end is a Node JS application which relies on Express and EJS.  Page styling is handled primarily by Materialize and custom CSS overrides. 
