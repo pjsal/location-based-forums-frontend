@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+import haversine from 'haversine-distance';
 import Posts from './Posts.js';
 import { createNewPost } from "../api";
+
+// Maximum number of meters allowed when determining distance from user to forums
+const maxMetersAway = '250'
 
 class Forum extends Component {
   constructor(props) {
@@ -64,7 +68,19 @@ class Forum extends Component {
 
     render() {
       
-      // console.log('Users in Forum', this.props.users)
+      console.log('Users coords', this.props.userLat, this.props.userLat)
+      console.log('Forum coords', this.props.forumLat, this.props.forumLng)
+
+      // Set forum location in preparation for calling the Haversine function
+      let forumLocation = { latitude: this.props.forumLat, longitude: this.props.forumLng }
+
+      // Set user location in preparation for calling the Haversine function
+      const userLocation = { latitude: this.props.userLat, longitude: this.props.userLng }
+      
+      console.log (this.props.name, "is", haversine(userLocation, forumLocation), "meters away")
+      
+      
+
 
       // Conditional rendering for posts
       let forumName = <h2>{this.props.name}</h2>
@@ -92,13 +108,21 @@ class Forum extends Component {
           if (this.props.forumSelected && (this.props.forumSelected !== this.props.id)) {
             forumName = ''
           } else {
-            forumName =
-              <div className="not-joined-container">
-                <h2 className="not-joined">{this.props.name}</h2>
-                <form onSubmit={(e) => this.props.joinForum(e, this.props.id, this.props.userId)}>
-                  <button className="join-btn" type='Submit'>Join</button>
-                </form>
-              </div>
+
+            if (haversine(userLocation, forumLocation) < maxMetersAway) {
+              forumName =
+                <div className="not-joined-container">
+                  <h2 className="not-joined">{this.props.name}</h2>
+                  <form onSubmit={(e) => this.props.joinForum(e, this.props.id, this.props.userId)}>
+                    <button className="join-btn" type='Submit'>Join</button>
+                  </form>
+                </div>
+            } else {
+              forumName =
+                <div className="not-joined-container">
+                  <h2 className="not-joined">{this.props.name} is out of range</h2>
+                </div>
+            }  
           }
         }
       }

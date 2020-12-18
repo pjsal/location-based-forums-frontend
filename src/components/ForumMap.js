@@ -4,8 +4,8 @@ import { Segment, Container } from 'semantic-ui-react';
 
 const mapStyles = {
   // position: 'relative', 
-  width: '75%',
-  height: '75%'
+  width: '65%',
+  height: '85%'
 };
 
 class ForumMap extends Component {

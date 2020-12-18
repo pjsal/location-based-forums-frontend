@@ -22,10 +22,14 @@ class Forums extends Component {
                         name={forum.name}
                         posts={forum.posts}
                         users={forum.users}
+                        forumLat={forum.latitude}
+                        forumLng={forum.longitude}
                         key={index}
                         userId={this.props.userId}
                         userName={this.props.userName}
                         userLoggedIn={this.props.userLoggedIn}
+                        userLat={this.props.userLat}
+                        userLng={this.props.userLng}
                         forumSelected={this.props.forumSelected}
                         joinForum={this.props.joinForum}
                         showActiveForumOnly={this.props.showActiveForumOnly}

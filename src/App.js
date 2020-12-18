@@ -19,8 +19,11 @@ class App extends Component {
         userName: '',
         loggedIn: false,
       }, 
-      lat: 39.901900368416364,
-      lng: -75.16390800261163,
+      // lat: 39.901900368416364,
+      // lng: -75.16390800261163,
+
+      lat: 39.90260793870716, 
+      lng: -75.16732681400379,
       forums: [],
       forumSelected: '',
       showRegistration: false,
