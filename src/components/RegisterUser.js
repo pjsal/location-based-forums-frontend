@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Login extends Component {
+class RegisterUser extends Component {
   constructor(){
     super();
 
@@ -15,30 +15,19 @@ class Login extends Component {
 
   render(){
 
-    // Conditional rendering for new login component
-    let loginDisplay = 
-          <form onSubmit={(e) => this.props.login(e, this.state)}>            
+    return (
+      <div className="register">
+        <form onSubmit={(e) => this.props.register(e, this.state)}>
+          
             <label for="userName">User Name:</label>
             <input type="text" name="userName" required value={this.state.userName} onChange={this.handleChange}/>
             <label for="password">Password:</label>
             <input type="password" name="password" required value={this.state.password} onChange={this.handleChange}/>
-            <button type='Submit'>Log In</button>
-          </form>
-
-    // Display log out button if user is logged in
-    if (this.props.loggedIn) {
-      loginDisplay =
-          <form onSubmit={(e) => this.props.logout(e)}>
-            <button type='Submit'>Log Out</button>
-          </form>
-    }
-
-    return (
-      <div>
-        {loginDisplay}
+          <button type='Submit'>Register</button>
+        </form>
       </div>
       )
   }
 }
 
-export default Login;
+export default RegisterUser;

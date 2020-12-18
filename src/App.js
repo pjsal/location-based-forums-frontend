@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { Route, Link, Redirect } from 'react-router-dom';
 import { render } from "react-dom";
-import { validateUser, getAllForums, createNewForum, addUserToForum } from "./api";
+import { validateUser, createNewUser, getAllForums, createNewForum, addUserToForum } from "./api";
 import Login from "./components/Login.js";
 import ForumMap from "./components/ForumMap.js";
 import Forums from "./components/Forums.js";
+import RegisterModal from "./components/RegisterModal.js";
+import RegisterUser from "./components/RegisterUser.js";
 
 const APPNAME = "Location Based Forums"
 
@@ -21,6 +23,8 @@ class App extends Component {
       lng: -75.16390800261163,
       forums: [],
       forumSelected: '',
+      showRegistration: false,
+      showRegistrationBtn: true,
     };
   }
 
@@ -48,6 +52,38 @@ class App extends Component {
         });
   }
 
+  register = (e, user) => {
+    e.preventDefault();
+    console.log("in register user:", user) 
+    // Call function in API file
+    createNewUser(user)
+      // If call was successful
+      .then((response) => {
+        // console.log('currentUser', response);
+        // If found (i.e, user not null)
+        if (response.data.user) {
+          // Update state
+          this.setState ({
+            id: response.data.user._id,
+            userName: response.data.user.userName,
+            loggedIn: true,
+            showRegistration: false,
+            showRegistrationBtn: false,
+          });
+          
+          console.log('Register state currentUser', this.state.id, this.state.userName)
+        } else {
+          // Need to return an error to the screen
+          console.log('User NOT found!')
+        }
+      }) 
+      .catch((error) => {
+        console.log('API ERROR:', error);
+      });
+  }
+
+
+
   login = (e, user) => {
     e.preventDefault(); 
     // Call function in API file
@@ -62,6 +98,7 @@ class App extends Component {
             id: response.data.user._id,
             userName: response.data.user.userName,
             loggedIn: true,
+            showRegistrationBtn: false,
           });
           
           console.log('state currentUser', this.state.id, this.state.userName)
@@ -91,6 +128,7 @@ class App extends Component {
             id: '',
             userName: '',
             loggedIn: false,
+            showRegistrationBtn: true,
           });
 
           // Get all forums when this component mounts
@@ -170,11 +208,27 @@ class App extends Component {
     console.log('forumSelected', this.state.forumSelected)
   }
   
+  showRegistrationModal = () => {
+    this.setState({ 
+      showRegistration: true,
+    });
+  };
+
+  hideRegistrationModal = () => {
+    this.setState({ 
+      showRegistration: false,
+    });
+  };
 
   render() {
     
+    const showHideRegBtn = this.state.showRegistrationBtn ? "display-reg-btn" : "hide-reg-btn";
+
     return (
       <>
+        <RegisterModal showRegistration={this.state.showRegistration} handleClose={this.hideRegistrationModal}>
+          <RegisterUser register={this.register}/>
+        </RegisterModal>
         <div className="header">
           <div className="logo">
             {APPNAME}
@@ -183,6 +237,9 @@ class App extends Component {
             <Login  loggedIn={this.state.loggedIn}
                     login={this.login}
                     logout={this.logout}/>
+          </div>
+          <div className={showHideRegBtn}>
+            <button type="button" onClick={this.showRegistrationModal}>New User?</button>
           </div>
         </div>
         <div className="main-container">

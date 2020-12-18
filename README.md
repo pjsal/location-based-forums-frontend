@@ -50,7 +50,7 @@ Location Based Forums (LBF) are temporary (just as the events they're usually as
 
 
 # Getting Started
-You can access the site via this link:  [LocationBasedForums](https://paul-location-based-forums-frontend.herokuapp.com/)
+You can access the site via this link:  [LocationBasedForums](https://location-based-forums-frontend.herokuapp.com/#/)
 
 
 # Application Design
@@ -84,6 +84,7 @@ A seed file is used to prepopulate the collections with basic data.
 
 # Known Issues
 - The posts page sometimes shows the previous posts when navigating to another forum.
+- No error message is returned when user is not found.
 
 
 # Future Improvements
@@ -91,6 +92,7 @@ A seed file is used to prepopulate the collections with basic data.
 - Automatically delete forums after a designated time (e.g., 12 hours).
 - Allow users to change the range when viewing forums.  Note: this will not impact the range for joining forums (currently .25).
 - Allow forum creator to set limits on max users. 
+- Limit the number of forums within a location.
 - Utilize more Google maps features to enhance user experience.
 - Overal fit and finish.
 

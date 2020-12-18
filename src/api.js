@@ -5,9 +5,16 @@ const validateUser = (user) => {
     return axios.get(`${process.env.REACT_APP_BASE_URL}users/api/users/${user.userName}/${user.password}`);  
 }
 
+// Create new user
+const createNewUser = (user) => {
+    // console.log('New User:', user)
+    return axios.post(`${process.env.REACT_APP_BASE_URL}users/api/users`, user);  
+}
+
 // Get All Forums
 // NEED TO FIGURE OUT A WAY TO GET JUST THE ONES IN RANGE
 const getAllForums = () => {
+    console.log(`${process.env.REACT_APP_BASE_URL}forums/api/forums`)
     return axios.get(`${process.env.REACT_APP_BASE_URL}forums/api/forums`);  
 }
 
@@ -28,4 +35,4 @@ const addUserToForum = (forumId, userId) => {
 
 
 // Export all methods
-export { validateUser, getAllForums, createNewPost, createNewForum, addUserToForum };
+export { validateUser, createNewUser, getAllForums, createNewPost, createNewForum, addUserToForum };
